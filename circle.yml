@@ -1,0 +1,17 @@
+dependencies:
+  pre:
+    - |
+      go get \
+        code.google.com/p/graphics-go/graphics \
+        github.com/rwcarlsen/goexif/exif
+  override:
+    - |
+      path="$HOME/.go_workspace/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+      rm -rf $path
+      mkdir -p $path
+      rsync -azC --delete ./ $path
+      echo $path
+      ls -al $path
+test:
+  override:
+    - go test -v ./...
