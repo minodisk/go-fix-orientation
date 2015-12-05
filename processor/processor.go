@@ -27,6 +27,7 @@ var affines map[int]graphics.Affine = map[int]graphics.Affine{
 	8: graphics.I.Rotate(toRadian(-90)),
 }
 
+// Process returns an image that is applied Exif orientation tag.
 func Process(r io.Reader) (d image.Image, err error) {
 	b, err := ioutil.ReadAll(r)
 	if err != nil {
@@ -38,12 +39,14 @@ func Process(r io.Reader) (d image.Image, err error) {
 	}
 	o, err := ReadOrientation(bytes.NewReader(b))
 	if err != nil {
+		// When orientation can't be read, return original image.
 		return s, nil
 	}
 	d = ApplyOrientation(s, o)
 	return
 }
 
+// ReadOrientation returns Exif orientation tag.
 func ReadOrientation(r io.Reader) (o int, err error) {
 	e, err := exif.Decode(r)
 	if err != nil {
@@ -60,9 +63,10 @@ func ReadOrientation(r io.Reader) (o int, err error) {
 	return
 }
 
+// ApplyOrientation applies orientation to image.
 func ApplyOrientation(s image.Image, o int) (d draw.Image) {
 	bounds := s.Bounds()
-	// orientation=5~8 なら画像サイズの縦横を入れ替える
+	// Swap width and height when orientation between 5 and 8
 	if o >= 5 && o <= 8 {
 		bounds = rotateRect(bounds)
 	}
