@@ -2,7 +2,8 @@ dependencies:
   pre:
     - |
       go get \
-        code.google.com/p/graphics-go/graphics \
+        github.com/BurntSushi/graphics-go/graphics \
+        github.com/BurntSushi/graphics-go/graphics/interp \
         github.com/rwcarlsen/goexif/exif
   override:
     - |

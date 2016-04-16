@@ -11,8 +11,8 @@ import (
 	"io/ioutil"
 	"math"
 
-	"code.google.com/p/graphics-go/graphics"
-	"code.google.com/p/graphics-go/graphics/interp"
+	"github.com/BurntSushi/graphics-go/graphics"
+	"github.com/BurntSushi/graphics-go/graphics/interp"
 	"github.com/rwcarlsen/goexif/exif"
 )
 
